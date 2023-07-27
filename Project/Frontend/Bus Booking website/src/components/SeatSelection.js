@@ -1,11 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { MdAirlineSeatIndividualSuite } from 'react-icons/md';
+
+const Seat = () => {
+    const [iconColor, setIconColor] = useState('#cbd5e1');
+
+    const handleClick = () => {
+        setIconColor('#3b82f6')
+    }
+    return (
+        <div className='m-2'>
+            <MdAirlineSeatIndividualSuite size={40} color={iconColor} style={{ cursor: "pointer" }} onClick={handleClick}/>
+        </div>
+    );
+};
+
 
 const SeatSelection = () => {
+
+    const generateSeats = (count, type) => {
+        const seats = [];
+        for (let i = 1; i <= count; i++) {
+            seats.push(<Seat key={`${type}-${i}`} />);
+        }
+        return seats;
+    };
+
     return (
         <>
             <div className="flex flex-col items-center p-2 border border-gray-300 rounded-lg border-solid">
-                <div className="flex flex-row items-center w-full">
-                    <div className="flex flex-col justify-center items-start w-2/3">
+                <div className="flex flex-row md:flex-wrap items-center w-full">
+                    <div className="flex flex-col justify-center items-start w-2/3 md:w-full">
                         <p className="font-bold text-2xl">
                             Select Seats
                         </p>
@@ -15,7 +39,7 @@ const SeatSelection = () => {
                                     Seat Price
                                 </p>
                             </div>
-                            <div className="flex flex-row w-1/2">
+                            <div className="flex flex-row w-1/2 ">
                                 <div className="flex items-center border border-solid rounded-lg border-gray-300 px-1 me-2">
                                     <input type="radio" name="" id="" />
                                     <p className="text-gray-500">
@@ -49,15 +73,15 @@ const SeatSelection = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center w-1/3">
-                        <div>
+                    <div className="flex flex-col items-center w-1/3 md:w-full md:flex-row">
+                        <div className="md:flex md:flex-row md:justify-evenly">
                             <div className="flex flex-row items-center my-0">
-                                <div className="border border-solid rounded-sm border-gray-300 bg-gray-100 h-[11px] w-[11px] me-2">
+                                <div className="border border-solid rounded-sm border-gray-300 bg-slate-300 h-[11px] w-[11px] me-2">
                                 </div>
                                 <p className='text-gray-500'>Vacant Seats</p>
                             </div>
                             <div className="flex flex-row items-center my-0">
-                                <div className="border border-solid rounded-sm border-gray-300 bg-gray-400 h-[11px] w-[11px] me-2">
+                                <div className="border border-solid rounded-sm border-gray-300 bg-slate-500 h-[11px] w-[11px] me-2">
                                 </div>
                                 <p className='text-gray-500'>Occupied Seats</p>
                             </div>
@@ -69,16 +93,27 @@ const SeatSelection = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-row justify-center items-center w-full">
-                    <div className="flex flex-col w-2/3">
-                        <div className="border border-gray-300 rounded-lg border-solid h-[50px] w-full">
-                            <div className="flex flex-row">
-
+                <div className="flex flex-row flex-wrap justify-center items-center w-full h-[30vw] md:h-auto">
+                    <div className="flex flex-col w-2/3 md:w-full h-full">
+                        <div className="flex flex-row overflow-x-scroll flex-wrap justify-stretch items-center border border-gray-300 rounded-lg border-solid h-1/2 w-full">
+                            <div className="flex flex-row items-center justify-center w-full">
+                                {generateSeats(10, 'upper')}
+                            </div>
+                            <div className="flex flex-row items-center justify-center w-full">
+                                {generateSeats(10, 'upper')}
+                            </div>
+                        </div>
+                        <div className="flex flex-row overflow-x-scroll flex-wrap justify-around items-center border border-gray-300 rounded-lg border-solid h-1/2 w-full" >
+                            <div className="flex flex-row  items-center justify-center w-full">
+                                {generateSeats(10, 'lower')}
+                            </div>
+                            <div className="flex flex-row items-start justify-center w-full">
+                                {generateSeats(9, 'lower')}
                             </div>
                         </div>
                     </div>
-                    <div className="w-1/3 flex items-center">
-                        <div className="flex flex-col border border-solid rounded-lg border-gray-300 px-2 m-2 w-full">
+                    <div className="w-1/3 flex items-center md:w-full h-full md:h-auto">
+                        <div className="flex flex-col justify-evenly border border-solid rounded-lg border-gray-300 px-2 m-2 w-full h-full md:h-auto">
                             <p className="font-bold">
                                 Boarding & Dropping
                             </p>

@@ -26,7 +26,7 @@ function App() {
           <Route exact path='/passenger-info' element={<PassengerInfo />}/>
           <Route exact path='/profile' element={<ProfilePage/>}/>
         </Routes>
-      <Footer />
+      {/* <Footer /> */}
       </BrowserRouter>
     </>
   )
