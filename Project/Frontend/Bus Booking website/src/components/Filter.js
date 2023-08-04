@@ -19,7 +19,7 @@ const Filter = () => {
     }, []);
 
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col md:w-auto'>
             <div className="flex flex-row items-center justify-between">
                 <p className='font-bold text-gray-900 m-4'>
                     Filter

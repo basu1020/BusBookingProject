@@ -28,12 +28,12 @@ const SeatSelection = () => {
     return (
         <>
             <div className="flex flex-col items-center p-2 border border-gray-300 rounded-lg border-solid">
-                <div className="flex flex-row md:flex-wrap items-center w-full">
-                    <div className="flex flex-col justify-center items-start w-2/3 md:w-full">
+                <div className="flex flex-row xl:flex-col items-center w-full">
+                    <div className="flex flex-col justify-center items-start w-2/3 xl:w-full">
                         <p className="font-bold text-2xl">
                             Select Seats
                         </p>
-                        <div className="flex flex-row items-center justify-between w-full">
+                        <div className="flex flex-row xl:flex-col items-center xl:items-start justify-between w-full">
                             <div className="flex items-start">
                                 <p className="font-semibold text-gray-500 me-2">
                                     Seat Price
@@ -73,8 +73,8 @@ const SeatSelection = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center w-1/3 md:w-full md:flex-row">
-                        <div className="md:flex md:flex-row md:justify-evenly">
+                    <div className="flex flex-col items-center w-1/3 xl:w-full xl:flex-row">
+                        <div className="xl:flex xl:flex-row xl:justify-evenly">
                             <div className="flex flex-row items-center my-0">
                                 <div className="border border-solid rounded-sm border-gray-300 bg-slate-300 h-[11px] w-[11px] me-2">
                                 </div>
@@ -93,8 +93,8 @@ const SeatSelection = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-row flex-wrap justify-center items-center w-full h-[30vw] md:h-auto">
-                    <div className="flex flex-col w-2/3 md:w-full h-full">
+                <div className="flex flex-row flex-wrap justify-center items-center w-full h-[30vw] xl:h-auto">
+                    <div className="flex flex-col w-2/3 xl:w-full h-full">
                         <div className="flex flex-row overflow-x-scroll flex-wrap justify-stretch items-center border border-gray-300 rounded-lg border-solid h-1/2 w-full">
                             <div className="flex flex-row items-center justify-center w-full">
                                 {generateSeats(10, 'upper')}
@@ -112,8 +112,8 @@ const SeatSelection = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="w-1/3 flex items-center md:w-full h-full md:h-auto">
-                        <div className="flex flex-col justify-evenly border border-solid rounded-lg border-gray-300 px-2 m-2 w-full h-full md:h-auto">
+                    <div className="w-1/3 flex items-center xl:w-full h-full xl:h-auto">
+                        <div className="flex flex-col justify-evenly border border-solid rounded-lg border-gray-300 px-2 m-2 w-full h-full xl:h-auto">
                             <p className="font-bold">
                                 Boarding & Dropping
                             </p>
