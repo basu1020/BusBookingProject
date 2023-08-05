@@ -39,7 +39,7 @@ const SeatSelection = () => {
                                     Seat Price
                                 </p>
                             </div>
-                            <div className="flex flex-row w-1/2 ">
+                            <div className="flex flex-row w-1/2 xl:w-full xl:justify-evenly ">
                                 <div className="flex items-center border border-solid rounded-lg border-gray-300 px-1 me-2">
                                     <input type="radio" name="" id="" />
                                     <p className="text-gray-500">
@@ -73,8 +73,8 @@ const SeatSelection = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center w-1/3 xl:w-full xl:flex-row">
-                        <div className="xl:flex xl:flex-row xl:justify-evenly">
+                    <div className="flex flex-col items-center w-1/3 xl:w-full xl:flex-row xl:justify-center">
+                        <div className="xl:flex xl:flex-row xl:justify-evenly xl:w-full">
                             <div className="flex flex-row items-center my-0">
                                 <div className="border border-solid rounded-sm border-gray-300 bg-slate-300 h-[11px] w-[11px] me-2">
                                 </div>

@@ -21,14 +21,14 @@ const Login = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[url(https://img.freepik.com/free-vector/characters-people-holding-giant-digital-devices_53876-32614.jpg?w=900&t=st=1690033061~exp=1690033661~hmac=29cf3a0eee5c0558b4bd394c57cb2bbe578929495a4cd520ade40976702dda89)] bg-cover bg-no-repeat bg-[center]">
-      <form className="w-1/4 bg-white shadow-md rounded px-8 pt-6 pb-8">
+      <form className="w-1/4 xl:w-2/5 flex flex-col justify-center align-middle bg-white shadow-md rounded px-8 pt-6 pb-8">
         <h2 className="text-2xl text-center mb-8 font-bold">Please login</h2>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
             Email
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
             placeholder="Email"
@@ -41,7 +41,7 @@ const Login = () => {
             Password
           </label>
           <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             placeholder="Password"

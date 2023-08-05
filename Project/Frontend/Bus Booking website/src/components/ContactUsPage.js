@@ -8,8 +8,8 @@ const ContactUsPage = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[url(https://img.freepik.com/free-vector/contact-concept-landing-page_52683-19707.jpg?w=996&t=st=1690034551~exp=1690035151~hmac=497b5943a579ccd98d90037e2cf0406347d639d2cd8b0eb2c838e3fa0d6d0801)] bg-cover bg-no-repeat bg-[center]">
-      <div className="bg-white/50 rounded-xl">
-      <div className="w-3/4 sm:w-1/2 px-4 py-8 sm:px-8 md:px-16 lg:px-24 xl:px-32">
+      <div className="bg-white rounded-xl">
+      <div className="w-3/4 sm:w-1/2 px-4 py-8 sm:px-8 md:px-16 lg:px-24 xl:px-32 flex flex-col justify-center items-center">
         <h2 className="text-3xl font-bold mb-8">Contact Us</h2>
         <div className="mb-6">
           <h3 className="text-xl font-bold mb-4">Get in touch with us</h3>
