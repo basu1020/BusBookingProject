@@ -133,7 +133,7 @@ const BookingSection = () => {
             )}
           </div>
           <div className="flex justify-center items-center">
-            <button className="rounded-md bg-orange shadow-[0px_4px_4px_rgba(0,_0,_0,_0.5)] w-[10.69rem] h-[2.69rem] flex flex-col py-[0rem] px-[2.14rem] box-border items-center justify-center text-[1.56rem] text-seashell">
+            <button className="rounded-md bg-orange shadow-[0px_4px_4px_rgba(0,_0,_0,_0.5)] w-[10.69rem] h-[2.69rem] flex flex-col py-[0rem] px-[2.14rem] box-border items-center justify-center text-[1.56rem] text-seashell cursor-pointer">
               Search
             </button>
           </div>

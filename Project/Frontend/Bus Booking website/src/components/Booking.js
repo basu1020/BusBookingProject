@@ -35,7 +35,7 @@ const Booking = () => {
   return (
     <>
       <div className="flex flex-row justify-center sticky">
-        {(screenWidth > 900 || showFilter) && <div className={`w-1/4 ${showFilter ? 'absolute left-2 top-2 bg-white w-2/5 transition-transform ease-in-out delay-150 duration-3000 shadow-lg shadow-gray-600/50' : ''}`}>
+        {(screenWidth > 1023 || showFilter) && <div className={`w-1/4 ${showFilter ? 'absolute left-2 top-2 bg-white w-2/5 transition-transform ease-in-out delay-150 duration-3000 shadow-lg shadow-gray-600/50' : ''}`}>
           <Filter />
         </div>}
         <div className="w-3/4 flex flex-col">
@@ -46,7 +46,7 @@ const Booking = () => {
             <div className="flex justify-between">
               <h3 className='text-lg'>Available Buses</h3>
               <div className='items-center'>
-                {screenWidth <= 900 &&
+                {screenWidth <= 1023 &&
                   <button className="bg-blue-500 rounded py-2 px-4 justify-center text-white" onClick={onClickFilterButton}>
                     {showFilter ? 'Hide Filter' : <FiFilter />}
                   </button>

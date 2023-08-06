@@ -23,3 +23,11 @@ button{
   font-family: 'Josefin Sans', sans-serif;
 }
 
+.slide-down-enter-active {
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(0);
+}
+
+.slide-down-enter {
+  transform: translateY(-100%);
+}

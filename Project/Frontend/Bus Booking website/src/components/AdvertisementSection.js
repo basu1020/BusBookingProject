@@ -3,7 +3,7 @@ import React from 'react';
 const AdvertisementSection = () => {
   return (
     <div className="flex flex-col justify-center items-center mt-10">
-      <section className="w-full h-[31.19rem] text-center text-[0.63rem] text-gray-200 font-outfit">
+      <section className="w-full h-auto text-center text-[0.63rem] text-gray-200 font-outfit">
         <h3 className="text-[2.19rem] font-medium font-inherit mb-6">
           India’s largest bus booking service
         </h3>
@@ -14,8 +14,8 @@ const AdvertisementSection = () => {
               alt=""
               src="/people-1-1@2x.png"
             />
-            <p>20 Million</p>
-            <p className="font-medium">happy customers globally</p>
+            <p className='text-[15px]'>20 Million</p>
+            <p className="text-[15px]">happy customers globally</p>
           </div>
           <div className="rounded-lg bg-white shadow-md m-2 p-6 w-[15.94rem] h-[15.44rem] text-center">
             <img
@@ -23,8 +23,8 @@ const AdvertisementSection = () => {
               alt=""
               src="/bussesjpeg-1@2x.png"
             />
-            <p>2000+</p>
-            <p className="font-medium">bus collection</p>
+            <p className='text-[15px]'>2000+</p>
+            <p className="font-medium text-[15px]">bus collection</p>
           </div>
           <div className="rounded-lg bg-gray-100 shadow-md m-2 p-6 w-[15.94rem] h-[15.44rem] text-center">
             <img
@@ -32,8 +32,8 @@ const AdvertisementSection = () => {
               alt=""
               src="/bustickets-1-1@2x.png"
             />
-            <p className="text-lg">5000+</p>
-            <p className="text-lg">tickets booked everyday</p>
+            <p className="text-lg text-[15px]">5000+</p>
+            <p className="font-medium text-[15px]">tickets booked everyday</p>
           </div>
         </div>
         <h3 className="text-[1.88rem] font-medium font-inherit mt-6">

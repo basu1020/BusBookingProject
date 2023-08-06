@@ -40,7 +40,7 @@ const SignUp = () => {
             Username
           </label>
           <input
-            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
             placeholder="Username"
@@ -53,7 +53,7 @@ const SignUp = () => {
             Email
           </label>
           <input
-            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="email"
             type="email"
             placeholder="Email"
@@ -66,7 +66,7 @@ const SignUp = () => {
             Age
           </label>
           <input
-            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="age"
             type="number"
             placeholder="Age"
@@ -79,7 +79,7 @@ const SignUp = () => {
             Phone Number
           </label>
           <input
-            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="phone"
             type="tel"
             placeholder="Phone Number"
@@ -92,7 +92,7 @@ const SignUp = () => {
             Password
           </label>
           <input
-            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             type="password"
             placeholder="Password"
@@ -105,7 +105,7 @@ const SignUp = () => {
             Confirm Password
           </label>
           <input
-            className="my-font appearance-none border rounded w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="my-font appearance-none border rounded w-11/12 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="confirmPassword"
             type="password"
             placeholder="Confirm Password"
