@@ -14,12 +14,12 @@ const BookingSection = () => {
 
   // Sample big cities of India for destination selection
   const cities = [
-    'Patna, Bihar',
     'Mumbai, Maharashtra',
     'Bengaluru, Karnataka',
     'Chennai, Tamil Nadu',
     'Kolkata, West Bengal',
     'Hyderabad, Telangana',
+    'Patna, Bihar',
     'Ahmedabad, Gujarat',
     'Jaipur, Rajasthan',
   ];
