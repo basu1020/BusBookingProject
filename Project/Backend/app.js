@@ -1,79 +1,35 @@
 const express = require('express');
 const app = express();
-const tripsModel = require('./models/tripsModel')
+const bookingController = require('./controllers/BookingController')
+const userController = require('./controllers/userController')
+const fetchUser = require('./middleware/fetchuser')
 const { body, validationResult } = require('express-validator')
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const router = express.Router()
 
-// ************ GET Requests *********************
+// ************ user requests *********************
 
-// GET request for fetching all the trips
-router.get('/trips', async (req, res) => {
-    const trips = await tripsModel.find({})
-    res.status(200).json({ success: true, trips })
-});
+router.post('/user/signup', userController.userValidationRules, userController.addNewUser)
 
-// GET request for fetching trips by date
-router.get('/trips/date/:date', async (req, res) => {
-    const { date } = req.params
-    const [day, month, year] = date.split('-')
+router.post('/user/login', userController.userLoginRules, userController.login)
 
-    const tripsByDate = await tripsModel.find({ date: `${day}/${month}/${year}` })
-    res.status(200).json({ success: true, tripsByDate })
-})
+router.post('/get-user', fetchUser, userController.getUser)
 
-// GET request for fetching trips by query
-router.get('/trips/search', async (req, res) => {
-    
-    const { category, to, from } = req.query
-    const desiredQuery = {}
-    if (category) {
-        desiredQuery.category = category;
-    }
+// ************ Bookings requests *********************
 
-    if (from) {
-        desiredQuery.from = from;
-    }
+router.get('/bookings/get', bookingController.bookings)
 
-    if (to) {
-        desiredQuery.to = to;
-    }
-    const tripsByQuery = await tripsModel.find(desiredQuery)
-    res.status(200).json({ success: true, tripsByQuery })
-})
+router.get('/bookings/date/:date', bookingController.bookingsByDate)
 
-// ************ POST Requests *********************
+router.get('/bookings/search', bookingController.bookingParameter)
 
-// POST request for adding new trip
-router.post('/trips/new', [
-    // body('date').isDate(),
-    body('from').notEmpty(),
-    body('to').notEmpty(),
-    body('busOwnerID').isNumeric(),
-    body('startTime').isNumeric(),
-    body('EndTime').isNumeric(),
-    body('category').notEmpty(),
-    body('SeatBooked').isArray({ min: 1 }),
-    body('bus_no').notEmpty(),
-    body('amenities_list').isArray({ min: 1 }),
-    body('busFare').isNumeric(),
-    body('busName').notEmpty(),
-    (req, res, next) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-        next();
-    },], async (req, res) => {
-        const currentDate = new Date()
-        const dateStrings = currentDate.toLocaleString().split(',')
-        req.body.date = dateStrings[0]
-        req.body.time = dateStrings[1]
-        const newTrip = await tripsModel.create(req.body);
-        res.status(200).json({ success: true, newTrip });
-    });
+router.post('/bookings/new',
+    // fetchUser,
+    bookingController.bookingValidationRules,
+    bookingController.addBooking
+);
 
 app.use('/api/v1', router);
 
