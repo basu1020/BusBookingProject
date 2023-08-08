@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import SeatSelection from './SeatSelection'
 
-const BusItem = () => {
+const BusItem = ({busDetails}) => {
     const [showSeats, setShowSeats] = useState(false)
 
     const buttonClickHandle = () => {
@@ -16,16 +16,14 @@ const BusItem = () => {
     return (
         <>
             <div>
-
-
                 <div className="p-2 flex flex-row justify-evenly flex-wrap rounded-lg border border-solid border-gray-300 my-2">
                     <div>
                         <div className='flex flex-row' name="Bus-name-and-rating">
                             <p className='font-bold m-4'>
-                                Intercity Smart Bus
+                                {busDetails.BusName}
                             </p>
                             <span className='bg-green-700 text-white m-4 p-1 rounded-md'>
-                                4.5
+                                {busDetails.Rating} ⭐
                             </span>
                             <span className="text-gray-500 m-4">
                                 Rating
@@ -53,29 +51,29 @@ const BusItem = () => {
                         </div>
                         <div className="flex flex-row">
                             <div className="font-bold m-4" name="boarding-time-and-date">
-                                22:45, 16 NOV
+                                {busDetails.FromTime}, 16 NOV
                             </div>
                             <div className="font-light text-gray-500 m-4">
-                                Duration
+                                {busDetails.TimeInterval}
                             </div>
                             <div className="font-bold m-4">
-                                08:56, 17 NOV
+                            {busDetails.ToTime}, 17 NOV
                             </div>
                         </div>
                     </div>
                     <div className='flex flex-col justify-center items-center'>
-                        <p className="font-bold">
-                            Trip Cost
+                        <p className="font-normal">
+                            Trip cost starts from
                         </p>
                         <p className='font-bold'>
                             ₹ 899
                         </p>
                         <button className='bg-orange rounded-lg p-2 text-white cursor-pointer' onClick={buttonClickHandle}>
-                            {showSeats ? 'Close' : 'View Seats'}
+                            {showSeats ? 'Close' : 'Book Seats'}
                         </button>
                     </div>
                 </div>
-                {showSeats && <SeatSelection />}
+                {showSeats && <SeatSelection busDetails={busDetails}/>}
             </div>
         </>
     )

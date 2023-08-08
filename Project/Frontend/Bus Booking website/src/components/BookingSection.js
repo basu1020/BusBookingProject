@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
+import 'react-datepicker/dist/react-datepicker.css';
 import { IoIosArrowDown } from 'react-icons/io';
 import DateSelector from './DateSelector';
+import {useSelector, useDispatch} from 'react-redux';
+import { busQueriesChanged, selectbusQueries } from '../global-state/busQueriesSlice';
 
 const BookingSection = () => {
+  const dispatch = useDispatch()
   const [showFromDiv, setShowFromDiv] = useState(false);
   const [showToDiv, setShowToDiv] = useState(false);
   const [showDateDiv, setShowDateDiv] = useState(false);
-  const [selectedFrom, setSelectedFrom] = useState('Patna, Bihar');
-  const [selectedTo, setSelectedTo] = useState('New Delhi, Delhi');
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  // const [selectedFrom, setSelectedFrom] = useState('Patna, Bihar');
+  // const [selectedTo, setSelectedTo] = useState('New Delhi, Delhi');
+  // const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // Sample big cities of India for destination selection
+  const busQueries = useSelector(selectbusQueries)
+
   const cities = [
     'Mumbai, Maharashtra',
     'Bengaluru, Karnataka',
@@ -37,12 +40,12 @@ const BookingSection = () => {
   };
 
   const handleDestinationSelect = (city) => {
-    setSelectedFrom(city);
+    dispatch(busQueriesChanged({...busQueries, from: city}))
     setShowFromDiv(false);
   };
 
   const handleToSelect = (city) => {
-    setSelectedTo(city);
+    dispatch(busQueriesChanged({...busQueries, to: city}))
     setShowToDiv(false);
   };
 
@@ -53,7 +56,7 @@ const BookingSection = () => {
   };
 
   const handleDateSelect = (date) => {
-    setSelectedDate(date);
+    dispatch(busQueriesChanged({...busQueries, date: date}))
     setShowDateDiv(false);
   };
 
@@ -68,7 +71,7 @@ const BookingSection = () => {
             >
               <div className="flex-flex-col">
                 <div className="flex font-medium items-start">From</div>
-                <div className="text-gray-200">{selectedFrom}</div>
+                <div className="text-gray-200">{busQueries.from}</div>
                 <div className="text-dimgray-200 text-sm flex items-start">India</div>
               </div>
               <div className="flex items-start justify-center w-[2vw] h-[1vh]">
@@ -94,7 +97,7 @@ const BookingSection = () => {
             >
               <div className="flex-flex col">
                 <div className="flex font-medium items-start">To</div>
-                <div className="text-gray-200">{selectedTo}</div>
+                <div className="text-gray-200">{busQueries.to}</div>
                 <div className="text-sm text-dimgray-200 flex items-start">India</div>
               </div>
               <div className="flex items-center justify-center">
@@ -120,7 +123,7 @@ const BookingSection = () => {
             >
               <div className="relative font-medium">Travel Date</div>
               <div className="relative text-gray-200 hover:text-blue-400">
-                {selectedDate ? selectedDate.toLocaleDateString('en-US') : 'Select a date'}
+                {busQueries.date.toLocaleDateString('en-US')}
               </div>
               <div className="flex items-center justify-center">
                 {/* <IoIosArrowDown /> */}
@@ -128,7 +131,7 @@ const BookingSection = () => {
             </div>
             {showDateDiv && (
               <div className="absolute mt-8 bg-white p-2 rounded-lg shadow-[0px_10px_10px_rgba(0,_0,_0,_0.5)]">
-                <DateSelector selectedDate={selectedDate} handleDateSelect={handleDateSelect} />
+                <DateSelector selectedDate={busQueries.date} handleDateSelect={handleDateSelect} />
               </div>
             )}
           </div>

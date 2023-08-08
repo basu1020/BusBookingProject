@@ -3,7 +3,7 @@ const app = express();
 const bookingController = require('./controllers/BookingController')
 const userController = require('./controllers/userController')
 const fetchUser = require('./middleware/fetchuser');
-const BusData = require('./config/data');
+const BusData = require('../Data/BusData')
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

@@ -17,6 +17,7 @@ body{
 
 button{
   font-family: 'Outfit', sans-serif;
+  cursor: pointer;
 }
 
 .my-font {

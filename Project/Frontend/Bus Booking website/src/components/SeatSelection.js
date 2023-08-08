@@ -15,7 +15,7 @@ const Seat = () => {
 };
 
 
-const SeatSelection = () => {
+const SeatSelection = ({busDetails}) => {
 
     const generateSeats = (count, type) => {
         const seats = [];
@@ -120,27 +120,21 @@ const SeatSelection = () => {
                             <div className="flex flex-row justify-between w-full">
                                 <div>
                                     <p className="font-semibold mb-0">
-                                        Patna
-                                    </p>
-                                    <p className="text-gray-400 mt-0">
-                                        Bihar, India
+                                        {busDetails.From}
                                     </p>
                                 </div>
                                 <p className="font-semi-bold">
-                                    22:45
+                                    {busDetails.FromTime}
                                 </p>
                             </div>
                             <div className="flex flex-row justify-between w-full">
                                 <div>
                                     <p className="font-semibold mb-0">
-                                        Mumbai
-                                    </p>
-                                    <p className="text-gray-400 mt-0">
-                                        Maharashtra, India
+                                        {busDetails.To}
                                     </p>
                                 </div>
                                 <p className="font-semi-bold">
-                                    20:00
+                                    {busDetails.ToTime}
                                 </p>
                             </div>
                             <div className="w-full bg-gray-400 h-[1px]"></div>

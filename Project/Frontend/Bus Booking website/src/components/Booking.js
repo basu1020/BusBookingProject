@@ -3,9 +3,12 @@ import DateCarousel from './DateCaraousel';
 import BusItem from './BusItem';
 import Filter from './Filter';
 import { FiFilter } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
+import { selectBusList } from '../global-state/busListSlice';
 
 const Booking = () => {
 
+  const busList = useSelector(selectBusList)
   const [showFilter, setShowFilter] = useState(false)
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
@@ -53,9 +56,9 @@ const Booking = () => {
                 }
               </div>
             </div>
-            <BusItem />
-            <BusItem />
-            <BusItem />
+            <BusItem busDetails={busList[0]}/>
+            <BusItem busDetails={busList[1]}/>
+            <BusItem busDetails={busList[2]}/>
           </div>
         </div>
       </div>

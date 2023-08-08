@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'; 
+import { busQueriesChanged, selectbusQueries } from '../global-state/busQueriesSlice';
 
 const DateCarousel = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
+  const dispatch = useDispatch()
+  const busQueries = useSelector(selectbusQueries)
 
+  // const [selectedDate, setSelectedDate] = useState(null);
+  
   const handleDateClick = (date) => {
-    setSelectedDate(date);
+    console.log(date)
+    dispatch(busQueriesChanged({...busQueries, date: date}))
   };
 
   // Generate a list of dates based on the current date
@@ -22,10 +28,10 @@ const DateCarousel = () => {
         {dates.map((date, index) => (
           <div
             key={index}
-            className={`date-details ${selectedDate === date ? '_active' : ''}`}
+            className={`date-details`}
           >
             <div
-              className="date-href px-4 py-2 rounded-lg bg-gray-300 hover:bg-blue-500 hover:text-white w-[2vw] flex flex-col justify-center items-center cursor-pointer"
+              className={busQueries.date.toLocaleDateString() === date.toLocaleDateString() ? "px-4 py-2 rounded-lg bg-blue-500 text-white w-[2vw] flex flex-col justify-center items-center cursor-pointer": "date-href px-4 py-2 rounded-lg bg-gray-300 hover:bg-blue-500 hover:text-white w-[2vw] flex flex-col justify-center items-center cursor-pointer"}
               // href="#"
               onClick={() => handleDateClick(date)}
             >
