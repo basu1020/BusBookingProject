@@ -3,15 +3,20 @@ import DateCarousel from './DateCaraousel';
 import BusItem from './BusItem';
 import Filter from './Filter';
 import { FiFilter } from 'react-icons/fi';
-import { useSelector } from 'react-redux';
 import { selectBusList } from '../global-state/busListSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectqueriedBusList } from '../global-state/queriedbusListSlice';
+import { selectbusQueries } from '../global-state/busQueriesSlice';
 
 const Booking = () => {
 
-  const busList = useSelector(selectBusList)
   const [showFilter, setShowFilter] = useState(false)
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-
+  
+  const busList = useSelector(selectBusList)
+  const busQueries = useSelector(selectbusQueries)
+  const queriedBusList = useSelector(selectqueriedBusList)
+  
   useEffect(() => {
     const handleResize = () => {
       setScreenWidth(window.innerWidth);
@@ -47,7 +52,9 @@ const Booking = () => {
           </div>
           <div className="flex flex-col justify-evenly h-auto mt-5">
             <div className="flex justify-between">
-              <h3 className='text-lg'>Available Buses</h3>
+              <h3 className='text-lg font-normal'>
+                Available Buses from {busQueries.from.split(',')[0]} to {busQueries.to.split(',')[0]}
+              </h3>
               <div className='items-center'>
                 {screenWidth <= 1023 &&
                   <button className="bg-blue-500 rounded py-2 px-4 justify-center text-white" onClick={onClickFilterButton}>
@@ -56,9 +63,11 @@ const Booking = () => {
                 }
               </div>
             </div>
-            <BusItem busDetails={busList[0]}/>
-            <BusItem busDetails={busList[1]}/>
-            <BusItem busDetails={busList[2]}/>
+            {
+              queriedBusList.map((elem) => {
+                return <BusItem busDetails={elem} />
+              })
+            }
           </div>
         </div>
       </div>

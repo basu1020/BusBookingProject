@@ -7,9 +7,21 @@ const initialState = {
         from: "Select",
         to: "Select",
         date: dateInstance,
-        departureSession: null,
-        arrivalSession: null,
-        busOperator: null,
+        departureTime: {
+            morning: false,
+            afternoon: false,
+            night: false
+        },
+        arrivalTime: {
+            morning: false,
+            afternoon: false,
+            night: false
+        },
+        busOperator: {
+            Zing: false,
+            Inter: false,
+            Safar: false
+        }
     }
 }
 

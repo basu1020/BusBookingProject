@@ -7,7 +7,7 @@ const initialState = {
 export const queriedBusListSlice = createSlice({
     name: 'queriedBusList',
     initialState,
-    reducers:{
+    reducers: {
         queriedBusListChanged : (state, action) => {
             state.list = action.payload
         }
@@ -15,4 +15,5 @@ export const queriedBusListSlice = createSlice({
 })
 
 export const selectqueriedBusList = (state) => state.queriedBusList.list
+export const {queriedBusListChanged} = queriedBusListSlice.actions
 export default queriedBusListSlice.reducer

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {MdCheckBoxOutlineBlank, MdCheckBox} from 'react-icons/md'
 import { selectbusQueries, busQueriesChanged } from '../global-state/busQueriesSlice';
+import { selectqueriedBusList, queriedBusListChanged } from '../global-state/queriedbusListSlice';
+import { filterBusesWithQuery, delay } from '../useful-functions/usefulFunctions';
+import { selectBusList } from '../global-state/busListSlice';
 
 const Filter = () => {
     const dispatch = useDispatch()
-    const [isAnyCheckboxSelected, setIsAnyCheckboxSelected] = useState(false);
     const [departureSessionSelected, setDepartureSessionSelected] = useState(false);
     const [arrivalSessionSelected, setArrivalSessionSelected] = useState(false);
-
-    const [pickupPointSelected, setPickupPointSelected] = useState(null); // New state for Pickup Point
-    const [dropPointSelected, setDropPointSelected] = useState(null); // New state for Drop Point
-    const busQueries = useSelector(selectbusQueries)
-
+    const [prevBusQueries, setPrevBusQueries] = useState({})
     const [filterQueries, setFilterQueries] = useState({
         departureTime: {
             morning: false,
@@ -44,12 +41,15 @@ const Filter = () => {
         'Jaipur, Rajasthan',
     ]
 
+    const busQueries = useSelector(selectbusQueries)
+    const busList = useSelector(selectBusList)
+
+    const delay = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
+
+
     const handleCheckboxChange = (sessionType, isSelected) => {
-        setIsAnyCheckboxSelected(
-            Array.from(document.querySelectorAll('input[type="checkbox"]')).some(
-                (checkbox) => checkbox.checked
-            )
-        );
 
         if (sessionType === 'departure') {
             if (!Array.from(document.querySelectorAll('input[type="checkbox"][data-session-type="departure"]')).some(
@@ -78,8 +78,26 @@ const Filter = () => {
         }
     };
 
+    const clickedAppliedButton = async () => {
+        if (prevBusQueries === filterQueries) {
+            alert("Please atleast make a change")
+        }
+        else {
+            dispatch(busQueriesChanged({...filterQueries, date: busQueries.date}))
+            setPrevBusQueries(filterQueries)
+            await delay(500)
+            const filteredBuses = filterBusesWithQuery(busList, busQueries)
+            dispatch(queriedBusListChanged(filteredBuses))
+            const {date, ...withoutDateBusQueries} = busQueries
+            setFilterQueries(withoutDateBusQueries)
+        }
+    }
+
     useEffect(() => {
         handleCheckboxChange();
+        const {date, ...withoutDateBusQueries} = busQueries
+        setPrevBusQueries(withoutDateBusQueries)
+        setFilterQueries(withoutDateBusQueries)
     }, []);
 
     return (
@@ -89,8 +107,8 @@ const Filter = () => {
                     Filter
                 </p>
                 <button
-                    className={`bg-${isAnyCheckboxSelected ? 'gray-400' : 'gray'} text-white p-1 me-3 rounded-lg hover:bg-gray-600 cursor-pointer`}
-                    disabled={!isAnyCheckboxSelected}
+                    className={`bg-gray-400 text-white p-1 me-3 rounded-lg hover:bg-gray-600 cursor-pointer`}
+                    onClick={clickedAppliedButton}
                 >
                     Apply
                 </button>
@@ -101,7 +119,16 @@ const Filter = () => {
                     type="checkbox"
                     name=""
                     id=""
-                    onChange={() => handleCheckboxChange('departure', true)}
+                    onChange={() => {
+                        handleCheckboxChange('departure', true)
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            departureTime: {
+                                ...prevFilterQueries.departureTime,
+                                morning: !prevFilterQueries.departureTime.morning
+                            }
+                        }))
+                    }}
                     data-session-type="departure"
                     disabled={arrivalSessionSelected}
                 />
@@ -112,7 +139,16 @@ const Filter = () => {
                     type="checkbox"
                     name=""
                     id=""
-                    onChange={() => handleCheckboxChange('departure', true)}
+                    onChange={() => {
+                        handleCheckboxChange('departure', true)
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            departureTime: {
+                                ...prevFilterQueries.departureTime,
+                                afternoon: !prevFilterQueries.departureTime.afternoon
+                            }
+                        }))
+                    }}
                     data-session-type="departure"
                     disabled={arrivalSessionSelected}
                 />
@@ -123,7 +159,16 @@ const Filter = () => {
                     type="checkbox"
                     name=""
                     id=""
-                    onChange={() => handleCheckboxChange('departure', true)}
+                    onChange={() => {
+                        handleCheckboxChange('departure', true)
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            departureTime: {
+                                ...prevFilterQueries.departureTime,
+                                night: !prevFilterQueries.departureTime.night
+                            }
+                        }))
+                    }}
                     data-session-type="departure"
                     disabled={arrivalSessionSelected}
                 />
@@ -135,7 +180,16 @@ const Filter = () => {
                     type="checkbox"
                     name=""
                     id=""
-                    onChange={() => handleCheckboxChange('arrival', true)}
+                    onChange={() => {
+                        handleCheckboxChange('arrival', true)
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            arrivalTime: {
+                                ...prevFilterQueries.arrivalTime,
+                                morning: !prevFilterQueries.arrivalTime.morning
+                            }
+                        }))
+                    }}
                     data-session-type="arrival"
                     disabled={departureSessionSelected}
                 />
@@ -146,7 +200,16 @@ const Filter = () => {
                     type="checkbox"
                     name=""
                     id=""
-                    onChange={() => handleCheckboxChange('arrival', true)}
+                    onChange={() => {
+                        handleCheckboxChange('arrival', true)
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            arrivalTime: {
+                                ...prevFilterQueries.arrivalTime,
+                                afternoon: !prevFilterQueries.arrivalTime.afternoon
+                            }
+                        }))
+                    }}
                     data-session-type="arrival"
                     disabled={departureSessionSelected}
                 />
@@ -157,7 +220,16 @@ const Filter = () => {
                     type="checkbox"
                     name=""
                     id=""
-                    onChange={() => handleCheckboxChange('arrival', true)}
+                    onChange={() => {
+                        handleCheckboxChange('arrival', true)
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            arrivalTime: {
+                                ...prevFilterQueries.arrivalTime,
+                                night: !prevFilterQueries.arrivalTime.night
+                            }
+                        }))
+                    }}
                     data-session-type="arrival"
                     disabled={departureSessionSelected}
                 />
@@ -169,10 +241,10 @@ const Filter = () => {
                 {cities.map((elem, index) => {
                     return (
                         <div className="flex flex-row m-2" key={`from-${index}`}
-                        onClick={() => {
-                            dispatch(busQueriesChanged({...busQueries, from: elem}))
-                        }}>
-                            {busQueries.from === elem? <MdCheckBox color={"darkblue"}/> : <MdCheckBoxOutlineBlank color='gray'/>}
+                            onClick={() => {
+                                setFilterQueries({ ...filterQueries, from: elem })
+                            }}>
+                            {filterQueries.from === elem ? <input type="checkbox" id="" name="" checked readOnly/> : <input type="checkbox" id="" name="" readOnly/>}
                             <span className="font-semibold text-gray-500 ml-2">
                                 {elem}
                             </span>
@@ -185,9 +257,9 @@ const Filter = () => {
                 {cities.map((elem, index) => {
                     return (
                         <div className="flex flex-row m-2" key={`from-${index}`} onClick={() => {
-                            dispatch(busQueriesChanged({...busQueries, to: elem}))
+                            setFilterQueries({ ...filterQueries, to: elem })
                         }}>
-                            {busQueries.to === elem ? <MdCheckBox color='blue'/> : <MdCheckBoxOutlineBlank color='gray'/>}
+                            {filterQueries.to === elem ? <input type="checkbox" id="" name="" checked readOnly/> : <input type="checkbox" id="" name="" readOnly/>}
                             <span className="font-semibold text-gray-500 ml-2">
                                 {elem}
                             </span>
@@ -197,15 +269,45 @@ const Filter = () => {
             </div>
             <p className="font-bold text-gray-800 m-4">Bus Operator</p>
             <div className='flex flex-row m-4'>
-                <input type="checkbox" name="" id="" onChange={handleCheckboxChange} />
+                <input type="checkbox" name="" id="" onChange={
+                    () => {
+                        handleCheckboxChange
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            busOperator: {
+                                ...prevFilterQueries.busOperator,
+                                Zing: !prevFilterQueries.busOperator.Zing
+                            }
+                        }))
+                    }} />
                 <span className="font-semibold text-gray-500 ml-2">Zing Bus</span>
             </div>
             <div className='flex flex-row m-4'>
-                <input type="checkbox" name="" id="" onChange={handleCheckboxChange} />
+                <input type="checkbox" name="" id="" onChange={
+                    () => {
+                        handleCheckboxChange
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            busOperator: {
+                                ...prevFilterQueries.busOperator,
+                                Inter: !prevFilterQueries.busOperator.Inter
+                            }
+                        }))
+                    }} />
                 <span className="font-semibold text-gray-500 ml-2">InterCity Smart</span>
             </div>
             <div className='flex flex-row m-4'>
-                <input type="checkbox" name="" id="" onChange={handleCheckboxChange} />
+                <input type="checkbox" name="" id="" onChange={
+                    () => {
+                        handleCheckboxChange
+                        setFilterQueries(prevFilterQueries => ({
+                            ...prevFilterQueries,
+                            busOperator: {
+                                ...prevFilterQueries.busOperator,
+                                Safar: !prevFilterQueries.busOperator.Safar
+                            }
+                        }))
+                    }} />
                 <span className="font-semibold text-gray-500 ml-2">Safar Exp</span>
             </div>
         </div>

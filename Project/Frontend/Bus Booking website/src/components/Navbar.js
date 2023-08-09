@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { BiMenuAltRight } from "react-icons/bi"
+import { useSelector } from 'react-redux';
+import { selectUser } from '../global-state/userSlice';
 
 const Navbar = () => {
 
   const [showHamburger, setShowHamburger] = useState(false)
-
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+  const user = useSelector(selectUser)
+  const userLoggedIn = user.loggedIn
 
   useEffect(() => {
     const handleResize = () => {
@@ -98,19 +101,18 @@ const Navbar = () => {
                 Contact us
               </Link>
             </div>
-            <div className="m-4 font-medium text-white">
+            {!userLoggedIn && <button className="m-4 font-medium text-white">
               <Link to="/login" className="text-black no-underline">
                 Login
               </Link>
-            </div>
-            <div className="m-4 font-medium">
+            </button>}
+            {!userLoggedIn && <div className="m-4 font-medium">
               <Link to="/signup" className="text-black no-underline">
                 Register
               </Link>
-            </div>
+            </div>}
           </div>}
-        </nav >
-        }
+        </nav >}
     </>
   );
 };

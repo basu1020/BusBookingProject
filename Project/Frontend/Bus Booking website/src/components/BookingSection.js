@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IoIosArrowDown } from 'react-icons/io';
 import DateSelector from './DateSelector';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { busQueriesChanged, selectbusQueries } from '../global-state/busQueriesSlice';
+import { useNavigate } from 'react-router-dom';
+import { selectBusList } from '../global-state/busListSlice';
+import { queriedBusListChanged, selectqueriedBusList } from '../global-state/queriedbusListSlice';
+import { filterBusesWithQuery } from '../useful-functions/usefulFunctions';
 
 const BookingSection = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [showFromDiv, setShowFromDiv] = useState(false);
   const [showToDiv, setShowToDiv] = useState(false);
@@ -15,6 +20,8 @@ const BookingSection = () => {
   // const [selectedDate, setSelectedDate] = useState(new Date());
 
   const busQueries = useSelector(selectbusQueries)
+  const busList = useSelector(selectBusList)
+  const queriedBusList = useSelector(selectqueriedBusList)
 
   const cities = [
     'Mumbai, Maharashtra',
@@ -26,6 +33,10 @@ const BookingSection = () => {
     'Ahmedabad, Gujarat',
     'Jaipur, Rajasthan',
   ];
+
+  const delay = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
 
   const handleFromClick = () => {
     setShowFromDiv(!showFromDiv);
@@ -40,12 +51,12 @@ const BookingSection = () => {
   };
 
   const handleDestinationSelect = (city) => {
-    dispatch(busQueriesChanged({...busQueries, from: city}))
+    dispatch(busQueriesChanged({ ...busQueries, from: city }))
     setShowFromDiv(false);
   };
 
   const handleToSelect = (city) => {
-    dispatch(busQueriesChanged({...busQueries, to: city}))
+    dispatch(busQueriesChanged({ ...busQueries, to: city }))
     setShowToDiv(false);
   };
 
@@ -56,9 +67,33 @@ const BookingSection = () => {
   };
 
   const handleDateSelect = (date) => {
-    dispatch(busQueriesChanged({...busQueries, date: date}))
+    dispatch(busQueriesChanged({ ...busQueries, date: date }))
     setShowDateDiv(false);
   };
+
+  // function filterBusesWithQuery(data, queries) {
+  //   const filteredFromAndTo = data.filter(bus => {
+  //     return bus.From === queries.from && bus.To === queries.to;
+  //   });
+
+  //   const filteredWithDay = filteredFromAndTo.filter(bus => {
+  //     const weekDay = queries.date.getDay()
+
+  //     return bus.DaysRunOn.includes([
+  //       "Sunday",
+  //       "Monday",
+  //       "Tuesday",
+  //       "Wednesday",
+  //       "Thursday",
+  //       "Friday",
+  //       "Saturday"
+  //     ][weekDay])
+  //   })
+
+  //   // const filteredWithTime
+
+  //   return filteredWithDay
+  // }
 
   return (
     <section className="relative w-[100vw] h-[32.75rem] bg-[url(/public/bus-1@2x.png)] bg-cover bg-no-repeat bg-[center] text-center text-[1.25rem] text-darkgray font-outfit" id="booking-section">
@@ -136,7 +171,15 @@ const BookingSection = () => {
             )}
           </div>
           <div className="flex justify-center items-center">
-            <button className="rounded-md bg-orange shadow-[0px_4px_4px_rgba(0,_0,_0,_0.5)] w-[10.69rem] h-[2.69rem] flex flex-col py-[0rem] px-[2.14rem] box-border items-center justify-center text-[1.56rem] text-seashell cursor-pointer">
+            <button className="rounded-md bg-orange shadow-[0px_4px_4px_rgba(0,_0,_0,_0.5)] w-[10.69rem] h-[2.69rem] flex flex-col py-[0rem] px-[2.14rem] box-border items-center justify-center text-[1.56rem] text-seashell cursor-pointer"
+              onClick={async() => {
+                const filteredBuses = filterBusesWithQuery(busList, busQueries)
+                dispatch(queriedBusListChanged(filteredBuses))
+                console.log(queriedBusList)
+                await delay(500)
+                navigate('/booking')
+              }}
+            >
               Search
             </button>
           </div>
